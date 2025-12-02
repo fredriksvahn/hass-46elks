@@ -1,0 +1,43 @@
+name: Validate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Validate manifest
+      run: |
+        if [ ! -f custom_components/elks_46/manifest.json ]; then
+          echo "manifest.json not found"
+          exit 1
+        fi
+        python -m json.tool custom_components/elks_46/manifest.json > /dev/null
+        echo "✓ manifest.json is valid"
+
+    - name: Validate hacs.json
+      run: |
+        if [ ! -f hacs.json ]; then
+          echo "hacs.json not found"
+          exit 1
+        fi
+        python -m json.tool hacs.json > /dev/null
+        echo "✓ hacs.json is valid"
+
+    - name: Check required files
+      run: |
+        files=("README.md" "LICENSE" "info.md")
+        for file in "${files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "✗ $file not found"
+            exit 1
+          fi
+          echo "✓ $file exists"
+        done
