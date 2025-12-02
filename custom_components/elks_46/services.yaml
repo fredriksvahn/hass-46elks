@@ -1,0 +1,86 @@
+send_sms:
+  name: Send SMS
+  description: Send an SMS message via 46elks
+  fields:
+    from:
+      name: From
+      description: Sender identifier (optional, uses configured default if not specified)
+      required: false
+      example: "MyAlert"
+      selector:
+        text:
+    to:
+      name: To
+      description: Recipient phone number in international format
+      required: true
+      example: "+46701234567"
+      selector:
+        text:
+    message:
+      name: Message
+      description: The SMS message content
+      required: true
+      example: "Hello from Home Assistant!"
+      selector:
+        text:
+          multiline: true
+
+make_call:
+  name: Make Call
+  description: Make a phone call via 46elks and play an audio file
+  fields:
+    from:
+      name: From
+      description: Caller phone number (must be your allocated 46elks number)
+      required: true
+      example: "+46701234567"
+      selector:
+        text:
+    to:
+      name: To
+      description: Recipient phone number in international format
+      required: true
+      example: "+46709876543"
+      selector:
+        text:
+    audio_url:
+      name: Audio URL
+      description: Public URL to MP3 file to play when call is answered
+      required: true
+      example: "https://yourdomain.com/alerts/fire.mp3"
+      selector:
+        text:
+
+send_mms:
+  name: Send MMS
+  description: Send an MMS message with optional image via 46elks (requires MMS-capable number)
+  fields:
+    from:
+      name: From
+      description: Sender phone number (must be your allocated MMS-capable 46elks number)
+      required: true
+      example: "+46701234567"
+      selector:
+        text:
+    to:
+      name: To
+      description: Recipient phone number in international format
+      required: true
+      example: "+46709876543"
+      selector:
+        text:
+    message:
+      name: Message
+      description: The MMS message content (optional if image is provided)
+      required: false
+      example: "Check out this image!"
+      selector:
+        text:
+          multiline: true
+    image:
+      name: Image URL
+      description: Public URL to image file (optional if message is provided)
+      required: false
+      example: "https://yourdomain.com/camera/snapshot.jpg"
+      selector:
+        text:

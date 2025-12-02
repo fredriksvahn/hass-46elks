@@ -1,0 +1,11 @@
+{
+  "domain": "elks_46",
+  "name": "46elks",
+  "codeowners": ["@fredriksvahn"],
+  "config_flow": true,
+  "documentation": "https://github.com/fredriksvahn/hass-46elks",
+  "issue_tracker": "https://github.com/fredriksvahn/hass-46elks/issues",
+  "requirements": ["requests>=2.31.0"],
+  "version": "0.1.0",
+  "iot_class": "cloud_polling"
+}

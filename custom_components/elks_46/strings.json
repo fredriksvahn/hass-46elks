@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configure 46elks",
+        "description": "Enter your 46elks API credentials and default SMS sender name.",
+        "data": {
+          "api_username": "API Username",
+          "api_password": "API Password",
+          "default_sender": "Default SMS Sender (alphanumeric, max 11 chars)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid API credentials. Please check your username and password.",
+      "cannot_connect": "Unable to connect to 46elks API. Please check your internet connection.",
+      "unknown": "An unexpected error occurred. Please try again."
+    },
+    "abort": {
+      "already_configured": "This 46elks account is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure 46elks Options",
+        "data": {
+          "default_sender": "Default SMS Sender"
+        }
+      }
+    }
+  }
+}
