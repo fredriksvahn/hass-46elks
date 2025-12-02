@@ -1,6 +1,8 @@
 # 46elks for Home Assistant
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+[![Tests](https://github.com/fredriksvahn/hass-46elks/actions/workflows/tests.yml/badge.svg)](https://github.com/fredriksvahn/hass-46elks/actions/workflows/tests.yml)
+[![Validate](https://github.com/fredriksvahn/hass-46elks/actions/workflows/validate.yml/badge.svg)](https://github.com/fredriksvahn/hass-46elks/actions/workflows/validate.yml)
 
 Home Assistant integration for [46elks](https://46elks.com) - a Swedish SMS, MMS, and Voice API service.
 
@@ -175,9 +177,9 @@ Check current pricing at [46elks.com/pricing](https://46elks.com/pricing).
 
 ## Support
 
-If you find this integration useful, consider buying me a coffee! ☕
+If you find this integration useful, consider supporting the development:
 
-[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/fredriksvahn)
+☕ [Buy Me a Coffee](https://buymeacoffee.com/fredriksvahn) • 🍺 [Ko-fi](https://ko-fi.com/fredriksvahn)
 
 ## Contributing
 
