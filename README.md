@@ -42,7 +42,7 @@ Home Assistant integration for [46elks](https://46elks.com) - a Swedish SMS, MMS
    - **API Password**: Your 46elks API password
    - **Default Sender** (optional): Default sender name for SMS (1-11 characters, must start with a letter)
 
-You can find your API credentials at [dashboard.46elks.com](https://dashboard.46elks.com/).
+You can find your API credentials at [46elks/account.com](https://46elks.com/account).
 
 ## Usage
 
