@@ -238,16 +238,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         to_number = call.data["to"]
         message = call.data["message"]
 
-        account_info = await api.async_get_account_info(hass)
-        if account_info and float(account_info.get("balance", 0)) <= 0:
-            raise HomeAssistantError("Insufficient balance to send SMS")
-
+        # ponytail: no balance pre-check - 46elks rejects the request itself if the
+        # account can't pay, and invoiced accounts run a negative balance legitimately.
         try:
             _LOGGER.debug("Sending SMS - From: %s, To: %s", from_number, to_number)
             result = await api.async_send_sms(hass, from_number, to_number, message)
             _LOGGER.info("SMS sent successfully: %s", result)
-        except HomeAssistantError:
-            raise
         except Exception as err:
             _LOGGER.error("Failed to send SMS from '%s' to '%s': %s", from_number, to_number, err)
             raise HomeAssistantError(f"Failed to send SMS: {err}") from err
@@ -279,15 +275,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         voice_start = json.dumps({"play": audio_url})
 
-        account_info = await api.async_get_account_info(hass)
-        if account_info and float(account_info.get("balance", 0)) <= 0:
-            raise HomeAssistantError("Insufficient balance to make call")
-
         try:
             result = await api.async_make_call(hass, from_number, to_number, voice_start)
             _LOGGER.info("Call initiated successfully: %s", result)
-        except HomeAssistantError:
-            raise
         except Exception as err:
             _LOGGER.error("Failed to make call: %s", err)
             raise HomeAssistantError(f"Failed to make call: {err}") from err
@@ -318,16 +308,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                 "Visit https://46elks.se/allocate to get a number with MMS capability."
             )
 
-        account_info = await api.async_get_account_info(hass)
-        if account_info and float(account_info.get("balance", 0)) <= 0:
-            raise HomeAssistantError("Insufficient balance to send MMS")
-
         try:
             _LOGGER.debug("Sending MMS - From: %s, To: %s", from_number, to_number)
             result = await api.async_send_mms(hass, from_number, to_number, message, image)
             _LOGGER.info("MMS sent successfully: %s", result)
-        except HomeAssistantError:
-            raise
         except Exception as err:
             _LOGGER.error("Failed to send MMS from '%s' to '%s': %s", from_number, to_number, err)
             raise HomeAssistantError(f"Failed to send MMS: {err}") from err

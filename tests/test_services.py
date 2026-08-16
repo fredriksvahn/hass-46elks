@@ -131,8 +131,8 @@ async def test_send_mms_with_capability(mock_hass, mock_elks_api):
 
 
 @pytest.mark.asyncio
-async def test_insufficient_balance(mock_hass, mock_elks_api):
-    """Test service calls with insufficient balance."""
+async def test_negative_balance_still_sends(mock_hass, mock_elks_api):
+    """Invoiced accounts run a negative balance - sending must not be blocked."""
     from custom_components.elks_46 import async_setup_entry
     from homeassistant.core import ServiceCall
 
@@ -145,15 +145,14 @@ async def test_insufficient_balance(mock_hass, mock_elks_api):
         "default_sender": "ELKS46",
     }
 
-    # Mock zero balance
+    # Mock negative balance (invoicing enabled)
     mock_elks_api.async_get_account_info = AsyncMock(return_value={
-        "balance": 0,
+        "balance": -50000,
     })
 
     with patch("custom_components.elks_46.ElksApi", return_value=mock_elks_api):
         await async_setup_entry(mock_hass, entry)
 
-    # Try to send SMS with zero balance
     call = MagicMock(spec=ServiceCall)
     call.data = {
         "to": "+46701234567",
@@ -163,5 +162,8 @@ async def test_insufficient_balance(mock_hass, mock_elks_api):
     # Get the registered service handler (send_sms is first service)
     service_handler = mock_hass.services.async_register.call_args_list[0][0][2]
 
-    with pytest.raises(HomeAssistantError, match="Insufficient balance"):
-        await service_handler(call)
+    await service_handler(call)
+
+    mock_elks_api.async_send_sms.assert_called_once_with(
+        mock_hass, "ELKS46", "+46701234567", "Test"
+    )
